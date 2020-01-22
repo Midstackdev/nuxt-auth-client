@@ -14,6 +14,9 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css' },
+    ],
+    script: [
+      { src: 'https://use.fontawesome.com/releases/v5.3.1/js/all.js'}
     ]
   },
   /*
@@ -39,7 +42,31 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
+
+  axios: {
+    baseURL: 'http://localhost:8001/api'
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: 'login', method: 'post', propertyName: 'meta.token'
+          },
+          user: {
+            url: 'user', method: 'get', propertyName: 'data'
+          },
+          logout: {
+
+          },
+        }
+      }
+    }
+  },
   /*
   ** Build configuration
   */

@@ -74,12 +74,12 @@
 		      </div>
 		      <div class="navbar-item">
 		        <div class="buttons">
-		          <a class="button is-primary">
+		          <nuxt-link :to="{ name: 'register' }" class="button is-primary">
 		            <strong>Sign up</strong>
-		          </a>
-		          <a class="button is-light">
+		          </nuxt-link>
+		          <nuxt-link :to="{ name: 'login' }" class="button is-light">
 		            Log in
-		          </a>
+		          </nuxt-link>
 		        </div>
 		      </div>
 		    </div>
