@@ -32,6 +32,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '@/plugins/mixins/user'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -61,7 +62,7 @@ export default {
             url: 'user', method: 'get', propertyName: 'data'
           },
           logout: {
-
+            url: 'logout', method: 'post',
           },
         }
       }
