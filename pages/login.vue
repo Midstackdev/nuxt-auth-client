@@ -9,7 +9,7 @@
               <form @submit.prevent="submit">
                 <div class="field">
                   <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="email" placeholder="Email" v-model="form.email">
+                    <input class="input" :class="{ 'is-danger' : errors.email }" type="email" placeholder="Email" v-model="form.email">
                     <span class="icon is-small is-left">
                       <i class="fas fa-envelope"></i>
                     </span>
@@ -17,14 +17,16 @@
                       <i class="fas fa-check"></i>
                     </span>
                   </p>
+                  <p class="help is-danger" v-if="errors.email">{{ errors.email[0] }}</p>
                 </div>
                 <div class="field">
                   <p class="control has-icons-left">
-                    <input class="input" type="password" placeholder="Password" v-model="form.password">
+                    <input class="input" :class="{ 'is-danger' : errors.password }" type="password" placeholder="Password" v-model="form.password">
                     <span class="icon is-small is-left">
                       <i class="fas fa-lock"></i>
                     </span>
                   </p>
+                  <p class="help is-danger" v-if="errors.password">{{ errors.password[0] }}</p>
                 </div>
                 <div class="field">
                   <p class="control">
@@ -46,6 +48,7 @@
 <script>
   
   export default {
+    middleware: 'guest',
     data () {
       return {
         form: {
@@ -57,13 +60,19 @@
 
     methods: {
       async submit () {
-        await this.$auth.login({
-          data: this.form
-        })
+        try {
+          await this.$auth.login({
+            data: this.form
+          })
 
-        this.$router.push({
-          path: '/'
-        })
+          this.$router.push({
+            path: this.$route.query.redirect || '/'
+          })
+        } catch(e) {
+          
+          console.log(e);
+        }
+        
       }
     }
   }

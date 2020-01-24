@@ -32,7 +32,9 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/mixins/user'
+    '@/plugins/mixins/user',
+    '@/plugins/mixins/validation',
+    '@/plugins/axios'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -46,6 +48,12 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
   ],
+
+  router: {
+    middleware: [
+     'clearValidationErrors'
+    ]
+  },
 
   axios: {
     baseURL: 'http://localhost:8001/api'
@@ -64,6 +72,10 @@ export default {
           logout: {
             url: 'logout', method: 'post',
           },
+        },
+        redirect: {
+          login: '/login',
+          home: '/'
         }
       }
     }
